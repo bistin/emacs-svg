@@ -29,8 +29,39 @@
       )))
 
 
-(setq xScale (scaleLinear :domain [1 2 ] :range [4 7]))
-(scale xScale 3)
+(setq xScale (scaleLinear :domain [1 10] :range [1 100]))
+(scale xScale 50)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 (defun scaleLinear2 (&rest params)
