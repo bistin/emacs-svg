@@ -11,7 +11,7 @@
                          `((y2 . 6)
                            (stroke . ,color))))
     (setq g (dom-node 'g
-                      `((transform . ,(concat "translate(" translate ",0)")))))
+                      `((transform . ,(concat "translate(" (number-to-string translate) ",0)")))))
     (svg-text g text :fill color  :y 9
               :dy "0.71em")
     (svg--append g line)
@@ -19,22 +19,14 @@
     )
   )
 
+(loop for x from 1 to 8
+      do (axis-text
+          svg
+          (number-to-string x)
+          (* x 25)
+          "white"
+          ))
 
-(axis-text svg "1" "25" "red")
-(axis-text svg "2" "50" "red")
-(axis-text svg "3" "75" "red")
-(axis-text svg "4" "100" "red")
-(axis-text svg "5" "125" "red")
-(axis-text svg "6" "150" "red")
-(axis-text svg "7" "175" "red")
-(axis-text svg "8" "200" "red")
-
-
-(svg--append svg elg)
-
-
-
-(svg-print elg)
 (svg-print svg)
 (svg-insert-image svg)
 ;; (save-excursion (goto-char (point-max)) (svg-insert-image svg))
