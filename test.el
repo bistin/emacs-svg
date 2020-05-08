@@ -4,8 +4,8 @@
 (setq svg (svg-create 400 100))
 
 
-(defun axis-text (svg text translate color)
-  "gen g text"
+(defun x-axis-text (svg text translate color)
+  "gen g x-axis text"
   (progn
     (setq line (dom-node 'line
                          `((y2 . 6)
@@ -19,13 +19,41 @@
     )
   )
 
+
+(defun y-axis-text (svg text translate color)
+  "gen g y-axis text"
+  (progn
+    (setq line (dom-node 'line
+                         `((x2 . -6)
+                           (stroke . ,color))))
+    (setq g (dom-node 'g
+                      `((transform . ,(concat "translate(50," (number-to-string translate) ")")))))
+    (svg-text g text :fill color  :x -9
+              :dy "0.32em")
+    (svg--append g line)
+    (svg--append svg g)
+    )
+  )
+
+
+;; x-axis
 (loop for x from 1 to 8
-      do (axis-text
+      do (x-axis-text
           svg
           (number-to-string x)
           (* x 25)
           "white"
           ))
+
+;;y-axis
+(loop for y from 1 to 8
+      do (y-axis-text
+          svg
+          (number-to-string y)
+          (* y 12.5)
+          "white"
+          ))
+
 
 (svg-print svg)
 (svg-insert-image svg)

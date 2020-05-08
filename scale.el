@@ -1,7 +1,3 @@
-(require 'eieio)
-
-(setq lexical-binding t)
-
 (defclass scaleLinear () ; No superclasses
   ((domain :initarg :domain
            :type vector
