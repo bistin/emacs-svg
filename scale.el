@@ -1,4 +1,4 @@
-(defclass scaleLinear () ; No superclasses
+(defclass scaleLinear ()
   ((domain :initarg :domain
            :type vector
            :documentation "domain")
@@ -24,9 +24,38 @@
       (+ t1 (* (- t2 t1) (/ (- x start) (- end start) )))
       )))
 
+(defun x-axis-text (svg text translate color height)
+  "gen g x-axis text"
+  (progn
+    (setq line (dom-node 'line
+                         `((y2 . 6)
+                           (stroke . ,color))))
+    (setq g (dom-node 'g
+                      `((transform . ,(concat "translate(" (number-to-string translate) "," (number-to-string height) ")")))))
+    (svg-text g text :fill color  :y 9
+              :dy "0.71em")
+    (svg--append g line)
+    (svg--append svg g)
+    )
+  )
 
-(setq xScale (scaleLinear :domain [1 10] :range [1 100]))
-(scale xScale 50)
+(defun y-axis-text (svg text translate color offset)
+  "gen g y-axis text"
+  (progn
+    (setq line (dom-node 'line
+                         `((x2 . -6)
+                           (stroke . ,color))))
+    (setq g (dom-node 'g
+                      `((transform . ,(concat "translate(" (number-to-string offset) "," (number-to-string translate) ")")))))
+    (svg-text g text :fill color  :x -9
+              :dy "0.32em")
+    (svg--append g line)
+    (svg--append svg g)
+    )
+  )
+
+(provide 'my-scale)
+;;(scale xScale 50)
 
 
 
